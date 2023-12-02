@@ -10,3 +10,6 @@ class ScrapingItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+class ATypeItem(scrapy.Item):
+    page_html = scrapy.Field()
