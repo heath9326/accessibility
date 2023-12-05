@@ -5,7 +5,10 @@ from ..items import ATypeItem
 #TODO links need to be sent from another django app
 class MainSpider(scrapy.Spider):
     name = 'wholepage'
-    start_urls = ['https://sfedu.ru/']
+    start_urls = []
+
+    def __int__(self, start_urls: list[str]):
+        self.start_urls = start_urls
 
     def parse(self, response):
         items = ATypeItem()

@@ -6,3 +6,6 @@ class Input(models.Model):
 
     def __str__(self):
         return self.input_text
+
+class Report(models.Model):
+    pass

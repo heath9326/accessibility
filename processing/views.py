@@ -14,10 +14,15 @@ from .forms import InputForm
 # Create your views here.
 def index(request):
     if request.method == 'POST':
-        return HttpResponse("Request Method is POST")
         print("Request method is post")
+        form = InputForm(request.POST)
+        if form.is_valid():
+            url_to_process = form.data['url']
+            print(url_to_process)
+            return HttpResponse("Request Method is POST")
+
+
     else:
-        context = {}
-        context['form'] = InputForm()
+        context = {'form': InputForm()}
         return render(request, "processing/index.html", context)
 
