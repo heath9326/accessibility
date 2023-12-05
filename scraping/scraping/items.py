@@ -12,4 +12,5 @@ class ScrapingItem(scrapy.Item):
     pass
 
 class ATypeItem(scrapy.Item):
-    page_html = scrapy.Field()
+    a_element = scrapy.Field()
+    url = scrapy.Field()
