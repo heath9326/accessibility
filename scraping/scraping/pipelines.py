@@ -9,29 +9,24 @@ from itemadapter import ItemAdapter
 
 import sqlite3
 
-
+# TODO create the db first
 class ScrapingPipeline:
-    conn = None
-    curr = None
 
     def __int__(self):
-        self.create_connection()
-        self.create_table()
-
-    def create_connection(self):
-        self.conn = sqlite3.connect("scrapy_database.db")
-        self.curr = self.conn.cursor()
-        return self.conn, self.curr
-
-    def create_table(self):
-        self.curr.execute("""CREATE TABLE IF NOT EXISTS a_elements_tb(element text, url text)""")
+        pass
 
     def store_db(self, item):
         self.curr.execute("""insert into a_elements_tb values(?, ?)""", (item['a_element'], item['url']))
         self.conn.commit()
 
     def process_item(self, item, spider):
+        self.conn = sqlite3.connect("scrapy_database.db")
+        self.curr = self.conn.cursor()
+        self.curr.execute("""CREATE TABLE IF NOT EXISTS a_elements_tb(element text, url text)""")
         self.store_db(item)
         return item
+
+    def close_spider(self):
+        self.curr.close()
 
 
