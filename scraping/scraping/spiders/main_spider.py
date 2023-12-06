@@ -12,6 +12,7 @@ class MainSpider(scrapy.Spider):
 
     def parse(self, response):
         item = ATypeItem()
+        custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.ScrapingPipeline": 300}}
         # Response.css('title').extract() to scrape only title
         a_elements = response.css('a').extract()
         for a_element in a_elements:
