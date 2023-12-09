@@ -1,5 +1,6 @@
 import scrapy
 from ..items import ATypeItem
+from processing.models import AItem
 
 #TODO links need to be sent from another django app
 class MainSpider(scrapy.Spider):
@@ -13,15 +14,16 @@ class MainSpider(scrapy.Spider):
         super(MainSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
-        item = ATypeItem()
+        #item = ATypeItem()
         custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.ScrapingPipeline": 300}}
         # Response.css('title').extract() to scrape only title
         a_elements = response.css('a').extract()
         for a_element in a_elements:
             #page_html = response.css('header::text').extract()
-            item['a_element'] = a_element
-            item['url_id'] = self.url_id
-            yield item
+            item = AItem(element=a_element, url_id=self.url_id)
+            #item['a_element'] = a_element
+            #item['url_id'] = self.url_id
+            yield item.save()
 
 
 # scrapy shell "https://sfedu.ru/" start scrapy shell
