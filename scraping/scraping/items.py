@@ -13,4 +13,4 @@ class ScrapingItem(scrapy.Item):
 
 class ATypeItem(scrapy.Item):
     a_element = scrapy.Field()
-    url = scrapy.Field()
+    url_id = scrapy.Field()

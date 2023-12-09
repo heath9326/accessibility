@@ -1,9 +1,12 @@
 from sqlite3 import IntegrityError
 
-from scrapy.crawler import CrawlerProcess
+from twisted.internet import reactor
+from scrapy.crawler import CrawlerProcess, CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from scraping.scraping.spiders import MainSpider
 from .models import Url
+from scrapy.crawler import CrawlerProcess
+
 
 
 class AutomaticCrawler:
@@ -14,14 +17,23 @@ class AutomaticCrawler:
         self.url_id = url_id
         self.start_urls.append(url)
 
-    def run_spider_main_spider(self):
-        process = CrawlerProcess(get_project_settings())
-        process.crawl(MainSpider(self.start_urls))
-        process.start()
+    def crawl(self):
+        #spider_kwargs = {} if spider_kwargs is None else spider_kwargs
+        crawler = CrawlerProcess()
+        crawler.start()
+        crawler.crawl(MainSpider, start_urls=self.start_urls, url_id=self.url_id)
+        crawler.start(stop_after_crawl=True, install_signal_handlers=False)
+
+    # def run_spider_main_spider(self):
+    #     runner = CrawlerRunner(get_project_settings())
+    #     runner.crawl(MainSpider, start_urls=self.start_urls, url_id=self.url_id)
+    #     # TODO add other spiders here
+    #     d = runner.join()
+    #     d.addBoth(lambda _: reactor.stop())
+    #     reactor.run(0)
 
     def scrape_page(self):
-        self.run_spider_main_spider()
-    #django_rq.enqueue(run_spider)
+        self.crawl()
 
 
 class UrlProcessor:

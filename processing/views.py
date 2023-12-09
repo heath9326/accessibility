@@ -23,12 +23,13 @@ def index(request):
             url_to_process = form.data['url']
             url_id = UrlProcessor(url_to_process).process_url()
             print(url_id)
-            # try:
-            #     automatic_crawler = AutomaticCrawler(url_to_process)
-            #     automatic_crawler.scrape_page()
-            # except Exception as exc:
-            #     print(f"Exeption occurred while running automated crawler, error {exc}")
-            #
+            try:
+                automatic_crawler = AutomaticCrawler(url_to_process, url_id)
+                automatic_crawler.scrape_page()
+                print("The crawling process is finished")
+            except Exception as exc:
+                print(f"Exeption occurred while running automated crawler, error: {exc}")
+
             # print(url_to_process)
             return HttpResponse("Request Method is POST")
 

@@ -1,14 +1,16 @@
 import scrapy
 from ..items import ATypeItem
 
-
 #TODO links need to be sent from another django app
 class MainSpider(scrapy.Spider):
     name = 'wholepage'
     start_urls = ['https://sfedu.ru/']
+    url_id = None
 
-    # def __int__(self, start_urls: list[str]):
-    #     self.start_urls = start_urls
+    def __int__(self, *args, **kwargs):
+        self.start_urls = kwargs.get('start_urls', [])
+        self.url_id = kwargs.get('url_id', [])
+        super(MainSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
         item = ATypeItem()
@@ -18,7 +20,7 @@ class MainSpider(scrapy.Spider):
         for a_element in a_elements:
             #page_html = response.css('header::text').extract()
             item['a_element'] = a_element
-            item['url'] = self.start_urls[0]
+            item['url_id'] = self.url_id
             yield item
 
 
