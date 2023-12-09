@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="scraping_database.db" uuid="ae8a2403-424c-4d15-9bda-f9b2bfdd4132">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Женя\PycharmProjects\accessibility\scraping\scraping_database.db</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="scraping.sqlite3" uuid="cacc0381-e816-4591-9d68-e4202c7a4352">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
