@@ -20,7 +20,8 @@ class ScrapingPipeline:
         self.conn.commit()
 
     def process_item(self, item, spider):
-        self.conn = sqlite3.connect("scraping_database.db")
+        path = ("../scraping.sqlite3")
+        self.conn = sqlite3.connect(path)
         self.curr = self.conn.cursor()
         self.curr.execute("""CREATE TABLE IF NOT EXISTS a_elements_tb(element text, url text)""")
         self.store_db(item)
