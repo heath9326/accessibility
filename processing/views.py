@@ -10,6 +10,7 @@ from django.views.generic import ListView
 
 from django.shortcuts import render
 from .forms import InputForm
+from .services import AutomaticCrawlerService, AccessibilityProcessingService
 from .tasks import AutomaticCrawler, UrlProcessor
 from .models import Url
 
@@ -23,12 +24,10 @@ def index(request):
             url_to_process = form.data['url']
             url_id = UrlProcessor(url_to_process).process_url()
             print(url_id)
-            try:
-                automatic_crawler = AutomaticCrawler(url_to_process, url_id)
-                automatic_crawler.scrape_page()
-                print("The crawling process is finished")
-            except Exception as exc:
-                print(f"Exeption occurred while running automated crawler, error: {exc}")
+            # crawler_service = AutomaticCrawlerService(url_to_process, url_id)
+            # crawler_service()
+            processing_service = AccessibilityProcessingService(url_to_process, url_id)
+            processing_service()
 
             # print(url_to_process)
             return HttpResponse("Request Method is POST")

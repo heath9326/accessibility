@@ -22,6 +22,9 @@ class AItem(models.Model):
     def __str__(self):
         return f"An element of type <a> of url: {self.url}"
 
+    class Meta:
+        unique_together = (("element", "url"))
+
 
 class Report(models.Model):
     pass

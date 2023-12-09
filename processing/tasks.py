@@ -8,14 +8,17 @@ from .models import Url
 from scrapy.crawler import CrawlerProcess
 
 
-
 class AutomaticCrawler:
+    """Automatic crawler to activate AType scrapy spider and store its items in the DB. """
     url_id: int = None
     start_urls: list = []
 
     def __init__(self, url: str, url_id: int):
         self.url_id = url_id
         self.start_urls.append(url)
+
+    def __str__(self):
+        return "Automatic crawler for <<a>> page item"
 
     def crawl(self):
         #spider_kwargs = {} if spider_kwargs is None else spider_kwargs
