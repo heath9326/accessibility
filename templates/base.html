@@ -16,7 +16,8 @@
 <body>
     <div>
         <h1 onclick="location.href='{% url "index" %}'">
-            Input your URL for analysis!
+             {% block title %}
+             {% endblock %}
         </h1>
     </div>
 

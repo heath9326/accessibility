@@ -1,7 +1,11 @@
 {% extends "base.html" %}
+ {% block title %}
+     Your accessibility analysis
+ {% endblock %}
 
 {% block content %}
     {% for elem in content %}
-        {{elem}}
+        <p>{{elem}}</p>
+        <div>У этого элемента отсутствует альтернативный текст.</div>
     {% endfor %}
 {% endblock %}
