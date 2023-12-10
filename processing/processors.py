@@ -2,19 +2,51 @@ from processing.models import AItem
 
 class ATypeProcessor:
     queryset = []
+    key_element_01 = "href="
+    key_element_02 = "alt"
 
     def __init__(self, url_id: int):
         print("Initializing ATypeProcessor...")
         self.queryset = AItem.objects.filter(url=url_id)
 
+    def find_element_quotations(self, element: str):
+        pass
+
+
     def process_elements(self):
         print("ATypeProcessor is called...")
         counter = 0
-        for element in self.queryset:
+        return_elements = []
+        for queryset_element in self.queryset:
             try:
-                if "href=" in element.element:
+                element_text = queryset_element.element
+                element_text_list = list(element_text)
+
+                if self.key_element_01 in element_text:
                     counter = counter + 1
-                    print(element.element)
+                    all_quotes = [i for i in range(len(element_text)) if element_text.startswith('"', i)]
+                    first_quote = element_text.find('"')
+                    print(element_text)
+                    href_index = element_text.find(self.key_element_01) + len(self.key_element_01) - 1
+                    print(href_index)
+                    href_quotations = [index for index in all_quotes if index > href_index][:2]
+                    href_link_index = [i for i in range((href_quotations[0] + 1), href_quotations[1])]
+                    href_link_text = "".join([element_text[i] for i in href_link_index])
+                    is_empty_link = True if not href_link_text or href_link_text == "/" else False
+                    if not is_empty_link:
+                        has_alt = True if element_text.find(self.key_element_02) > 0 else False
+                        if not has_alt:
+                              return_elements.append(queryset_element)
+                        else:
+                            alt_index = element_text.find(self.key_element_02) + len(self.key_element_02) - 1
+                            alt_quotations = [index for index in all_quotes if index > alt_index][:2]
+                            alt_link_index = [i for i in range((href_quotations[0] + 1), href_quotations[1])]
+                            alt_link_text = "".join([element_text[i] for i in alt_link_index])
+                            is_empty_link_alt = True if not alt_link_text else False
+                            if is_empty_link_alt:
+                                return_elements.append()
+                            else:
+                                continue
                     # Find index of href element
                     # Find all "" in the element
                     # Find check in "" next to htlm is not empty
@@ -25,5 +57,7 @@ class ATypeProcessor:
                 continue
         print(f"Total number of elements found {len(self.queryset)}")
         print(f"Total number of elements processed is {counter}")
+        return return_elements
+
 
 

@@ -10,6 +10,7 @@ from django.views.generic import ListView
 
 from django.shortcuts import render
 from .forms import InputForm
+from .processors import ATypeProcessor
 from .services import AutomaticCrawlerService, AccessibilityProcessingService
 from .tasks import AutomaticCrawler, UrlProcessor
 from .models import Url
@@ -26,8 +27,12 @@ def index(request):
             print(url_id)
             # crawler_service = AutomaticCrawlerService(url_to_process, url_id)
             # crawler_service()
-            processing_service = AccessibilityProcessingService(url_to_process, url_id)
-            processing_service()
+            # processing_service = AccessibilityProcessingService(url_to_process, url_id)
+            # processing_service()
+            a_type_processor = ATypeProcessor(url_id)
+            a_type_error_element = a_type_processor.process_elements()
+            for element in a_type_error_element:
+                print(element.element)
 
             # print(url_to_process)
             return HttpResponse("Request Method is POST")
