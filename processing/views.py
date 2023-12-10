@@ -31,11 +31,13 @@ def index(request):
             # processing_service()
             a_type_processor = ATypeProcessor(url_id)
             a_type_error_element = a_type_processor.process_elements()
-            for element in a_type_error_element:
-                print(element.element)
 
+            context_list = []
+            for element in a_type_error_element:
+                context_list.append(element.element)
+            context = {"content": context_list}
             # print(url_to_process)
-            return HttpResponse("Request Method is POST")
+            return render(request, "processing/report.html", context)
 
     else:
         context = {'form': InputForm()}
