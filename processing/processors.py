@@ -1,6 +1,7 @@
 from processing.models import AItem
 
 class ATypeProcessor:
+    name = "a_type_elements"
     queryset = []
     key_element_01 = "href="
     key_element_02 = "alt"
@@ -11,7 +12,6 @@ class ATypeProcessor:
 
     def find_element_quotations(self, element: str):
         pass
-
 
     def process_elements(self):
         print("ATypeProcessor is called...")
@@ -36,22 +36,17 @@ class ATypeProcessor:
                     if not is_empty_link:
                         has_alt = True if element_text.find(self.key_element_02) > 0 else False
                         if not has_alt:
-                              return_elements.append(queryset_element)
+                              return_elements.append(element_text)
                         else:
                             alt_index = element_text.find(self.key_element_02) + len(self.key_element_02) - 1
                             alt_quotations = [index for index in all_quotes if index > alt_index][:2]
-                            alt_link_index = [i for i in range((href_quotations[0] + 1), href_quotations[1])]
+                            alt_link_index = [i for i in range((alt_quotations[0] + 1), alt_quotations[1])]
                             alt_link_text = "".join([element_text[i] for i in alt_link_index])
                             is_empty_link_alt = True if not alt_link_text else False
                             if is_empty_link_alt:
-                                return_elements.append()
+                                return_elements.append(element_text)
                             else:
                                 continue
-                    # Find index of href element
-                    # Find all "" in the element
-                    # Find check in "" next to htlm is not empty
-                    # If it is not empty find  "alt" element
-                    # If it is not inlude it in the report
             except Exception as exc:
                 print(f"Exception occurred while processing items, exception: '{exc}'")
                 continue

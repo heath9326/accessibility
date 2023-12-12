@@ -1,3 +1,4 @@
+from processing.models import AItem, Url
 from processing.processors import ATypeProcessor
 from processing.tasks import AutomaticCrawler
 
@@ -29,6 +30,7 @@ class AccessibilityProcessingService:
     processors: set = (ATypeProcessor, )
     url_to_process: str = None
     url_id: int = None
+    context: dict = {}
 
     def __init__(self, url_to_process: str,  url_id: int):
         print("Initializing AccessibilityProcessingService...")
@@ -40,8 +42,13 @@ class AccessibilityProcessingService:
         for processor in self.processors:
             try:
                 active_processor = processor(self.url_id)
-                active_processor.process_elements()
+                elements = active_processor.process_elements()
+                self.context[processor.name] = elements
             except Exception as exc:
                 print(f"Exception occurred while processing and items, exception: '{exc}'")
+        return self.context
 
+    def clear_db(self):
+        url = Url.objects.get(url=self.url_to_process)
+        url.delete()
 

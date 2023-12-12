@@ -4,8 +4,9 @@
  {% endblock %}
 
 {% block content %}
-    {% for elem in content %}
-        <p>{{elem}}</p>
+    {% for elem in a_type_elements %}
+        <pre>{{elem}}</pre>
         <div>У этого элемента отсутствует альтернативный текст.</div>
     {% endfor %}
+
 {% endblock %}

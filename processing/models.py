@@ -25,6 +25,12 @@ class AItem(models.Model):
     class Meta:
         unique_together = (("element", "url"))
 
+class FormItem(models.Model):
+    element = models.TextField()
+    url = models.ForeignKey(Url, on_delete=models.CASCADE)
 
-class Report(models.Model):
-    pass
+    def __str__(self):
+        return f"An element of type <form> of url: {self.url}"
+
+    class Meta:
+        unique_together = (("element", "url"))
