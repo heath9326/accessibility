@@ -9,8 +9,7 @@ from itemadapter import ItemAdapter
 
 import sqlite3
 
-# TODO create the db first
-class ScrapingPipeline:
+class AItemPipeline:
 
     def __int__(self):
         pass

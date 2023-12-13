@@ -12,7 +12,7 @@ from django.shortcuts import render
 from .forms import InputForm
 from .processors import ATypeProcessor
 from .services import AutomaticCrawlerService, AccessibilityProcessingService
-from .tasks import AutomaticCrawler, UrlProcessor
+from .tasks import AutomaticAItemCrawler, UrlProcessor
 from .models import Url, AItem
 
 

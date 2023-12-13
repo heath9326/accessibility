@@ -3,19 +3,19 @@ from ..items import ATypeItem
 from processing.models import AItem
 
 #TODO links need to be sent from another django app
-class MainSpider(scrapy.Spider):
-    name = 'wholepage'
-    start_urls = ['https://sfedu.ru/']
+class AItemSpider(scrapy.Spider):
+    name = 'aitem'
+    start_urls = []
     url_id = None
 
     def __int__(self, *args, **kwargs):
         self.start_urls = kwargs.get('start_urls', [])
         self.url_id = kwargs.get('url_id', [])
-        super(MainSpider, self).__init__(*args, **kwargs)
+        super(AItemSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
         #item = ATypeItem()
-        custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.ScrapingPipeline": 300}}
+        custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.AItemPipeline": 300}}
         # Response.css('title').extract() to scrape only title
         a_elements = response.css('a').extract()
         for a_element in a_elements:

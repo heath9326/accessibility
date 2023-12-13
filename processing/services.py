@@ -1,10 +1,10 @@
 from processing.models import AItem, Url
-from processing.processors import ATypeProcessor
-from processing.tasks import AutomaticCrawler
+from processing.processors import ATypeProcessor, FormTypeProcessor
+from processing.tasks import AutomaticAItemCrawler, AutomaticFormCrawler
 
 
 class AutomaticCrawlerService:
-    crawlers: set = (AutomaticCrawler, )
+    crawlers: set = (AutomaticFormCrawler,)
     url_to_process: str = None
     url_id: str = None
 
@@ -20,14 +20,13 @@ class AutomaticCrawlerService:
                 active_crawler = crawler(self.url_to_process, self.url_id)
                 active_crawler.scrape_page()
             except Exception as exc:
-                print(f"While scraping the page using {crawler} exeption occurred, exeption: {exc}")
+                print(f"While scraping the page using {crawler.name} exeption occurred, exeption: {exc}")
                 print(f"Fix the error and repeat the process")
-                # TODO collapse collected data
                 return
 
 
 class AccessibilityProcessingService:
-    processors: set = (ATypeProcessor, )
+    processors: set = (FormTypeProcessor, )
     url_to_process: str = None
     url_id: int = None
     context: dict = {}
