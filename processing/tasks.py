@@ -28,14 +28,6 @@ class AutomaticAItemCrawler:
         crawler.crawl(AItemSpider, start_urls=self.start_urls, url_id=self.url_id)
         crawler.start(stop_after_crawl=True, install_signal_handlers=False)
 
-    # def run_spider_main_spider(self):
-    #     runner = CrawlerRunner(get_project_settings())
-    #     runner.crawl(MainSpider, start_urls=self.start_urls, url_id=self.url_id)
-    #     # TODO add other spiders here
-    #     d = runner.join()
-    #     d.addBoth(lambda _: reactor.stop())
-    #     reactor.run(0)
-
     def scrape_page(self):
         self.crawl()
 
@@ -57,18 +49,9 @@ class AutomaticFormCrawler:
         crawler = CrawlerProcess()
         crawler.start()
         crawler.crawl(FormItemSpider, start_urls=self.start_urls, url_id=self.url_id)
+        crawler.crawl(AItemSpider, start_urls=self.start_urls, url_id=self.url_id)
         crawler.start(stop_after_crawl=True, install_signal_handlers=False)
 
-    # def run_spider_main_spider(self):
-    #     runner = CrawlerRunner(get_project_settings())
-    #     runner.crawl(MainSpider, start_urls=self.start_urls, url_id=self.url_id)
-    #     # TODO add other spiders here
-    #     d = runner.join()
-    #     d.addBoth(lambda _: reactor.stop())
-    #     reactor.run(0)
-
-    def scrape_page(self):
-        self.crawl()
 
 class UrlProcessor:
     url: str

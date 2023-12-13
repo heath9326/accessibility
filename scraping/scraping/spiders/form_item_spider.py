@@ -4,7 +4,7 @@ from processing.models import AItem, FormItem
 
 
 class FormItemSpider(scrapy.Spider):
-    name = 'wholepage'
+    name = 'formitem'
     start_urls = []
     url_id = None
 
@@ -14,8 +14,8 @@ class FormItemSpider(scrapy.Spider):
         super(FormItemSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
-        #item = ATypeItem()
-        custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.AItemPipeline": 300}}
+        # item = ATypeItem()
+        # custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.AItemPipeline": 300}}
         # Response.css('title').extract() to scrape only title
         form_elements = response.css('form').extract()
         for form_element in form_elements:

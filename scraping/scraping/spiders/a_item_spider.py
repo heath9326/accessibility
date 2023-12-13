@@ -14,8 +14,8 @@ class AItemSpider(scrapy.Spider):
         super(AItemSpider, self).__init__(*args, **kwargs)
 
     def parse(self, response):
-        #item = ATypeItem()
-        custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.AItemPipeline": 300}}
+        # item = ATypeItem()
+        # custom_settings = {'ITEM_PIPELINES': {"scraping.pipelines.AItemPipeline": 300}}
         # Response.css('title').extract() to scrape only title
         a_elements = response.css('a').extract()
         for a_element in a_elements:

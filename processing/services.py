@@ -1,10 +1,19 @@
 from processing.models import AItem, Url
 from processing.processors import ATypeProcessor, FormTypeProcessor
-from processing.tasks import AutomaticAItemCrawler, AutomaticFormCrawler
+from sqlite3 import IntegrityError
+
+from twisted.internet import reactor
+from scrapy.crawler import CrawlerProcess, CrawlerRunner
+from scrapy.utils.project import get_project_settings
+from scraping.scraping.spiders import AItemSpider, FormItemSpider
+from .models import Url
+from scrapy.crawler import CrawlerProcess
+
+from .tasks import AutomaticFormCrawler
 
 
 class AutomaticCrawlerService:
-    crawlers: set = (AutomaticFormCrawler,)
+    automatic_crawler = AutomaticFormCrawler
     url_to_process: str = None
     url_id: str = None
 
@@ -15,18 +24,22 @@ class AutomaticCrawlerService:
 
     def __call__(self):
         print("AutomaticCrawlerService is being called...")
-        for crawler in self.crawlers:
-            try:
-                active_crawler = crawler(self.url_to_process, self.url_id)
-                active_crawler.scrape_page()
-            except Exception as exc:
-                print(f"While scraping the page using {crawler.name} exeption occurred, exeption: {exc}")
-                print(f"Fix the error and repeat the process")
-                return
+        try:
+            automatic_crawler = AutomaticFormCrawler(self.url_to_process, self.url_id)
+            automatic_crawler.crawl()
+        except Exception as exc:
+            self.clear_db()
+            print(f"While scraping the page exeption occurred, exeption: {exc}")
+            print(f"Fix the error and repeat the process")
+            return
+
+    def clear_db(self):
+        url = Url.objects.get(url=self.url_to_process)
+        url.delete()
 
 
 class AccessibilityProcessingService:
-    processors: set = (FormTypeProcessor, )
+    processors: set = (ATypeProcessor, FormTypeProcessor,)
     url_to_process: str = None
     url_id: int = None
     context: dict = {}

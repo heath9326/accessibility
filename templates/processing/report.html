@@ -4,6 +4,12 @@
  {% endblock %}
 
 {% block content %}
+    <h3>Элементы типа <code>form</code> не просшедшие проверку:</h3>
+    {% for elem in form_elements %}
+        <pre>{{elem}}</pre>
+        <div>У этого элемента отсутствует label и/или title.</div>
+    {% endfor %}
+    <h3>Элементы типа <code>a</code> не просшедшие проверку:</h3>
     {% for elem in a_type_elements %}
         <pre>{{elem}}</pre>
         <div>У этого элемента отсутствует альтернативный текст.</div>
