@@ -4,3 +4,4 @@
 # your spiders.
 from .a_item_spider import AItemSpider
 from .form_item_spider import FormItemSpider
+from .img_Item_spider import ImgItemSpider

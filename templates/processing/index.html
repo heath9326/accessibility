@@ -2,13 +2,16 @@
 
 {% extends "base.html" %}
  {% block title %}
-     Input your URL for analysis!
+     <div style="text-align: center"> Input your URL for analysis!</div>
  {% endblock %}
 
 {% block content %}
-    <form action = "" method = "post">
-        {% csrf_token %}
-        {{form }}
-        <input type="submit" value=Submit">
-    </form>
+    <div margin="auto">
+        <form action = "" method = "post">
+            {% csrf_token %}
+            {{form }}
+            <input type="submit" value=Submit>
+        </form>
+    </div>
+
 {% endblock %}

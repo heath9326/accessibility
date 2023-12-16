@@ -34,3 +34,13 @@ class FormItem(models.Model):
 
     class Meta:
         unique_together = (("element", "url"))
+
+class ImgItem(models.Model):
+    element = models.TextField()
+    url = models.ForeignKey(Url, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"An element of type <img> of url: {self.url}"
+
+    class Meta:
+        unique_together = (("element", "url"))

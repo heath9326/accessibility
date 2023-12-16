@@ -1,18 +1,32 @@
 {% extends "base.html" %}
  {% block title %}
-     Your accessibility analysis
+     <div style="text-align: center"> Your accessibility analysis </div>
  {% endblock %}
 
 {% block content %}
-    <h3>Элементы типа <code>form</code> не просшедшие проверку:</h3>
+    <h3 style="text-align: center">Элементы типа <code>form</code> не просшедшие проверку:</h3>
     {% for elem in form_elements %}
         <pre>{{elem}}</pre>
-        <div>У этого элемента отсутствует label и/или title.</div>
+        <div style="text-align: center">
+            У этого элемента отсутствует label и/или title.
+            См <a href="https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html">2.4.6 Headings and Labels (Level AA)</a>
+        </div>
     {% endfor %}
-    <h3>Элементы типа <code>a</code> не просшедшие проверку:</h3>
+    <h3 style="text-align: center">Элементы типа <code>a</code> не просшедшие проверку:</h3>
     {% for elem in a_type_elements %}
         <pre>{{elem}}</pre>
-        <div>У этого элемента отсутствует альтернативный текст.</div>
+        <div style="text-align: center">
+            У этого элемента отсутствует альтернативный текст.
+            См <a href="https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html">1.1.1 Non-text Content (Level A)</a>
+        </div>
+    {% endfor %}
+    <h3 style="text-align: center">Элементы типа <code>img</code> не просшедшие проверку:</h3>
+    {% for elem in img_elements %}
+        <pre>{{elem}}</pre>
+        <div style="text-align: center">
+            У этого элемента отсутствует альтернативный текст.
+            См <a href="https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html">1.1.1 Non-text Content (Level A)</a>
+        </div>
     {% endfor %}
 
 {% endblock %}

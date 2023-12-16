@@ -1,5 +1,5 @@
 from processing.models import AItem, Url
-from processing.processors import ATypeProcessor, FormTypeProcessor
+from processing.processors import ATypeProcessor, FormTypeProcessor, ImgTypeProcessor
 from sqlite3 import IntegrityError
 
 from twisted.internet import reactor
@@ -39,7 +39,7 @@ class AutomaticCrawlerService:
 
 
 class AccessibilityProcessingService:
-    processors: set = (ATypeProcessor, FormTypeProcessor,)
+    processors: set = (ATypeProcessor, FormTypeProcessor, ImgTypeProcessor)
     url_to_process: str = None
     url_id: int = None
     context: dict = {}
