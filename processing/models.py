@@ -25,6 +25,7 @@ class AItem(models.Model):
     class Meta:
         unique_together = (("element", "url"))
 
+
 class FormItem(models.Model):
     element = models.TextField()
     url = models.ForeignKey(Url, on_delete=models.CASCADE)
@@ -34,6 +35,7 @@ class FormItem(models.Model):
 
     class Meta:
         unique_together = (("element", "url"))
+
 
 class ImgItem(models.Model):
     element = models.TextField()

@@ -9,11 +9,11 @@ from scraping.scraping.spiders import AItemSpider, FormItemSpider
 from .models import Url
 from scrapy.crawler import CrawlerProcess
 
-from .tasks import AutomaticFormCrawler
+from .tasks import AutomaticCrawler
 
 
 class AutomaticCrawlerService:
-    automatic_crawler = AutomaticFormCrawler
+    automatic_crawler = AutomaticCrawler
     url_to_process: str = None
     url_id: str = None
 
@@ -25,7 +25,7 @@ class AutomaticCrawlerService:
     def __call__(self):
         print("AutomaticCrawlerService is being called...")
         try:
-            automatic_crawler = AutomaticFormCrawler(self.url_to_process, self.url_id)
+            automatic_crawler = AutomaticCrawler(self.url_to_process, self.url_id)
             automatic_crawler.crawl()
         except Exception as exc:
             self.clear_db()

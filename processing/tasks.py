@@ -3,7 +3,7 @@ from .models import Url
 from scrapy.crawler import CrawlerProcess
 
 
-class AutomaticFormCrawler:
+class AutomaticCrawler:
     """Automatic crawler to activate AType scrapy spider and store its items in the DB. """
     name = "Form Crawler"
     url_id: int = None
